@@ -1,0 +1,11 @@
+---
+applications:
+- name: clamav-rest
+  instances: 1
+  memory: 2G
+  docker:
+    image: ajilaag/clamav-rest
+  env: 
+    CF_DOCKER_MAX_SCAN_SIZE: 100M 
+    CF_DOCKER_MAX_FILE_SIZE: 100M
+  
