@@ -2,12 +2,12 @@ ARG base_image
 
 FROM ${base_image}
 
-ARG CLAMAV_REST_VERSION="20250705"
-ARG GO_VERSION="1.24.4"
+ARG CLAMAV_REST_VERSION
+ARG GO_VERSION
 
 RUN apt-get update && \
     apt-get upgrade -y && \
-    apt-get install -y tzdata logrotate netcat wget
+    apt-get install -y tzdata netcat wget openssl
 
 # Install golang
 RUN wget https://go.dev/dl/go${GO_VERSION}.linux-amd64.tar.gz && \
@@ -30,34 +30,38 @@ RUN go mod tidy && \
     go build -v && \
     cp clamav-rest /usr/bin
 
-
-COPY clamavlogrotate /etc/logrotate.d/clamav
-
 # Set timezone 
 ENV TZ=America/New_York
 
-ADD ./server.* /etc/ssl/clamav-rest/
+COPY conf/openssl.conf /tmp/openssl.conf
 
+# generate ssl certs. these are only generated to satisfy the clamav-rest code base. They aren't used as CF connects via http. 
+RUN mkdir -p /etc/ssl/clamav-rest && \
+    openssl ecparam -genkey -name secp384r1 -out /etc/ssl/clamav-rest/server.key && \
+    openssl req -new -x509 -sha256 -key /etc/ssl/clamav-rest/server.key -out /etc/ssl/clamav-rest/server.crt -days 365 -config /tmp/openssl.conf 
+ 
 # Install ClamAV
-
 RUN apt-get install -y clamav clamav-base clamav-daemon clamav-freshclam libclamunrar9 
 
-COPY entrypoint.sh /usr/bin/
+COPY scripts/entrypoint.sh /usr/bin/
 
-COPY conf/ /etc/clamav/
+COPY conf/clamd.conf /etc/clamav/
+COPY conf/freshclam.conf /etc/clamav/
 
 RUN mkdir -p /run/clamav && \
     chown -R clamav:clamav /run/clamav && \
     chown -R clamav:clamav /etc/clamav && \
     chown -R clamav:clamav /var/lib/clamav && \
-    chown -R clamav:clamav /var/log/clamav 
+    chown -R clamav:clamav /var/log/clamav && \
+    chown -R clamav:clamav /etc/ssl/clamav-rest
 
 RUN freshclam --quiet --no-dns
 
 RUN chown -R clamav:clamav /run/clamav && \
     chown -R clamav:clamav /etc/clamav && \
     chown -R clamav:clamav /var/lib/clamav && \
-    chown -R clamav:clamav /var/log/clamav 
+    chown -R clamav:clamav /var/log/clamav && \
+    chown -R clamav:clamav /etc/ssl/clamav-rest
 
 ENV PORT=9000
 ENV SSL_PORT=9443
