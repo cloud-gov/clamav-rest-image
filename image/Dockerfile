@@ -2,8 +2,8 @@ ARG base_image
 
 FROM ${base_image}
 
-ARG CLAMAV_REST_VERSION
-ARG GO_VERSION
+ARG CLAMAV_REST_VERSION="20250705"
+ARG GO_VERSION="1.24.5"
 
 RUN apt-get update && \
     apt-get upgrade -y && \
