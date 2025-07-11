@@ -33,7 +33,7 @@ RUN go mod tidy && \
 # Set timezone 
 ENV TZ=America/New_York
 
-COPY conf/openssl.conf /tmp/openssl.conf
+COPY ./conf/openssl.conf /tmp/openssl.conf
 
 # generate ssl certs. these are only generated to satisfy the clamav-rest code base. They aren't used as CF connects via http. 
 RUN mkdir -p /etc/ssl/clamav-rest && \
@@ -43,10 +43,10 @@ RUN mkdir -p /etc/ssl/clamav-rest && \
 # Install ClamAV
 RUN apt-get install -y clamav clamav-base clamav-daemon clamav-freshclam libclamunrar9 
 
-COPY scripts/entrypoint.sh /usr/bin/
+COPY ./scripts/entrypoint.sh /usr/bin/
 
-COPY conf/clamd.conf /etc/clamav/
-COPY conf/freshclam.conf /etc/clamav/
+COPY ./conf/clamd.conf /etc/clamav/
+COPY ./conf/freshclam.conf /etc/clamav/
 
 RUN mkdir -p /run/clamav && \
     chown -R clamav:clamav /run/clamav && \
