@@ -13,5 +13,4 @@ params:
   CF_USERNAME:
 
 run:
-  dir: source
-  path: ci/deploy.sh
+  path: source/ci/deploy.sh
