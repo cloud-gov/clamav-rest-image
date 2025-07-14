@@ -9,3 +9,5 @@ applications:
   env: 
     CF_DOCKER_MAX_SCAN_SIZE: 100M 
     CF_DOCKER_MAX_FILE_SIZE: 100M
+  routes:
+  - route: clamav-rest.apps.internal
