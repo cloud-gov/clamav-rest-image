@@ -27,7 +27,7 @@ jobs:
     file: source/ci/deploy.yml
     params:
       CF_API: ((dev-cf-api-url))
-      CF_DOCKER_USERNAME: ((ecr-aws-key))
+      CF_DOCKER_USERNAME: ((ecr_aws_key))
       CF_ORG: cloud-gov
       CF_PASSWORD: ((dev-cf-password))
       CF_SPACE: acceptance-tests
