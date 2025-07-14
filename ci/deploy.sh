@@ -11,7 +11,7 @@ cf auth
 cf t -o $CF_ORG -s $CF_SPACE
 
 cf push -f source/cf/manifest.yml \
-    --var docker_username=${docker_username} \
+    --var docker_username=${CF_DOCKER_USERNAME} \
     --var ecr_repository=${ecr_repository} \
     --var image_version=${image_version}
     

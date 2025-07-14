@@ -4,13 +4,13 @@ inputs:
   - name: clamav-rest-image
 
 params:
-  CF_API: ((dev-cf-api-url))
-      CF_ORG: cloud-gov
-      CF_SPACE: acceptance-tests
-      CF_USERNAME: ((dev-cf-username))
-      CF_PASSWORD: ((dev-cf-password))
-
+  CF_API: 
   CF_DOCKER_PASSWORD:
+  CF_DOCKER_USERNAME:
+  CF_ORG:
+  CF_PASSWORD:
+  CF_SPACE:
+  CF_USERNAME:
   docker_username:
 
 run:
