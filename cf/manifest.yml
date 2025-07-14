@@ -4,6 +4,7 @@ applications:
   instances: 1
   memory: 2G
   docker:
+    docker_username: ((docker_username))
     image: clamav-rest
   env: 
     CF_DOCKER_MAX_SCAN_SIZE: 100M 
