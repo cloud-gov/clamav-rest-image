@@ -31,6 +31,7 @@ jobs:
         show_app_log: true
         vars: 
           docker_username: ((ecr_aws_key))
+          ecr_repository: ((ecr_repository))
   
   # on_failure:
   #   put: slack
