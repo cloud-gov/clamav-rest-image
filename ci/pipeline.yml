@@ -29,8 +29,8 @@ jobs:
         docker_username: ((ecr_aws_key))
         manifest: source/cf/manifest.yml
         show_app_log: true
-      vars: 
-        docker_username: ((ecr_aws_key))
+        vars: 
+          docker_username: ((ecr_aws_key))
   
   # on_failure:
   #   put: slack
