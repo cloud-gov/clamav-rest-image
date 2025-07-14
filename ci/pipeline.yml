@@ -48,8 +48,8 @@ resources:
     api: ((dev-cf-api-url))
     username: ((dev-cf-username))
     password: ((dev-cf-password))
-    organization: ((cloud-gov))
-    space: ((acceptance-tests))
+    organization: cloud-gov
+    space: acceptance-tests
 
 - name: clamav-rest-image
   type: registry-image
