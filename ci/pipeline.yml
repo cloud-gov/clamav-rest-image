@@ -17,6 +17,7 @@ jobs:
   plan:
   - in_parallel:
     - get: clamav-rest-image
+      params: {skip_download: true}
       trigger: true
     - get: source
       params: {depth: 1}
