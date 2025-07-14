@@ -19,6 +19,7 @@ jobs:
     - get: clamav-rest-image
       params: {skip_download: true}
       trigger: true
+    - get: general-task
     - get: source
       params: {depth: 1}
       trigger: true
@@ -41,6 +42,15 @@ resources:
     aws_access_key_id: ((ecr_aws_key))
     aws_secret_access_key: ((ecr_aws_secret))
     repository: clamav-rest
+    aws_region: us-gov-west-1
+    tag: latest
+
+- name: general-task
+  type: registry-image
+  source:
+    aws_access_key_id: ((ecr_aws_key))
+    aws_secret_access_key: ((ecr_aws_secret))
+    repository: general-task
     aws_region: us-gov-west-1
     tag: latest
 
