@@ -2,6 +2,8 @@
 
 set -e
 
+ls -R
+
 ecr_repository=$(cat clamav-rest-image/repository)
 image_version=$(cat clamav-rest-image/tag)
 
