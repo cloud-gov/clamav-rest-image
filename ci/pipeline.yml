@@ -22,38 +22,18 @@ jobs:
     - get: source
       params: {depth: 1}
       trigger: true
-  - in_parallel:
-    - put: cf-dev
-      params:
-        docker_password: ((ecr_aws_secret))
-        docker_username: ((ecr_aws_key))
-        manifest: source/cf/manifest.yml
-        show_app_log: true
-        vars: 
-          docker_username: ((ecr_aws_key))
-          ecr_repository: ((ecr_repository))
-  
-  # on_failure:
-  #   put: slack
-  #   params:
-  #     <<: *slack-failure-params
-  #     text: |
-  #       :x: FAILED to deploy external-domain-broker on development
-  #       <$ATC_EXTERNAL_URL/teams/$BUILD_TEAM_NAME/pipelines/$BUILD_PIPELINE_NAME/jobs/$BUILD_JOB_NAME/builds/$BUILD_NAME|View build details>
-
-
+  - task: deploy
+    image: general-task
+    file: source/ci/deploy.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_DOCKER_USERNAME: ((ecr-aws-key))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: acceptance-tests
+      CF_USERNAME: ((dev-cf-username))
 
 resources:
-
-- name: cf-dev
-  type: cf
-  icon: cloud-upload
-  source:
-    api: ((dev-cf-api-url))
-    username: ((dev-cf-username))
-    password: ((dev-cf-password))
-    organization: cloud-gov
-    space: acceptance-tests
 
 - name: clamav-rest-image
   type: registry-image
@@ -85,15 +65,6 @@ resources:
     uri: https://github.com/cloud-gov/clamav-rest-image.git
 
 resource_types:
-
-- name: cf
-  type: registry-image
-  source:
-    aws_access_key_id: ((ecr_aws_key))
-    aws_secret_access_key: ((ecr_aws_secret))
-    repository: cf-resource
-    aws_region: us-gov-west-1
-    tag: latest
 
 - name: git
   type: registry-image

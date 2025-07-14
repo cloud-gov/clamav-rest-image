@@ -1,0 +1,12 @@
+platform: linux
+inputs:
+  - name: source
+  - name: clamav-rest-image
+
+params:
+  docker_password:
+  docker_username:
+
+run:
+  dir: src
+  path: ci/tasks/deploy.sh
