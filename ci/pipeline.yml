@@ -34,6 +34,19 @@ jobs:
       CF_PASSWORD: ((dev-cf-password))
       CF_SPACE: acceptance-tests
       CF_USERNAME: ((dev-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
+  - task: test
+    image: general-task
+    file: source/ci/test.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: acceptance-tests
+      CF_USERNAME: ((dev-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
 
 resources:
 

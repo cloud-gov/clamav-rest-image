@@ -11,6 +11,8 @@ params:
   CF_PASSWORD:
   CF_SPACE:
   CF_USERNAME:
+  CLAMAV_REST_DOMAIN:
+  CLAMAV_REST_HOSTNAME:
 
 run:
   path: source/ci/deploy.sh

@@ -7,4 +7,4 @@ applications:
     image: ((ecr_repository)):((image_version))
     username: ((docker_username))
   routes:
-  - route: clamav-rest.apps.internal
+  - route: ((route))

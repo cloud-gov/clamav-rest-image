@@ -1,0 +1,11 @@
+---
+applications:
+- name: ((app_name))
+  instances: 1
+  memory: 256M
+  no-route: true
+  buildpacks:
+  - staticfile_buildpack 
+  env: 
+    CLAMAV_REST_ENDPOINT: ((clamav_rest_endpoint))
+  
