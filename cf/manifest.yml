@@ -2,7 +2,7 @@
 applications:
 - name: clamav-rest
   instances: 1
-  memory: 2G
+  memory: 4G
   docker:
     image: ((ecr_repository)):((image_version))
     username: ((docker_username))
