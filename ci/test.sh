@@ -33,4 +33,5 @@ if [[ "$test_exit_code" == "0" ]]; then
 else 
     echo "Tests failed. Here are the recent logs to help you figure out why..."
     echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent)"    
+    exit 1
 fi
