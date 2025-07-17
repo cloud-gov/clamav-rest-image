@@ -1,6 +1,6 @@
 ---
 applications:
-- name: clamav-rest
+- name: ((name))
   instances: 1
   memory: 4G
   docker:
