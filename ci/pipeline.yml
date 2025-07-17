@@ -46,7 +46,7 @@ jobs:
       CF_PASSWORD: ((dev-cf-password))
       CF_SPACE: acceptance-tests
       CF_USERNAME: ((dev-cf-username))
-      CLAMAV_REST_DOMAIN: force.failure.foo
+      CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
 
 resources:
