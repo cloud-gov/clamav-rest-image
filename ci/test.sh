@@ -20,10 +20,11 @@ cf push \
     --var clamav_rest_endpoint=${clamav_rest_endpoint} \
     --var app_name=${CLAMAV_REST_HOSTNAME}-test
 
+cf add-network-policy ${CLAMAV_REST_HOSTNAME}-test ${CLAMAV_REST_HOSTNAME}
 
-
+set +e
 test_exit_code=$(cf run-task ${CLAMAV_REST_HOSTNAME}-test -c "tasks/run-tests.sh" -w)
-
+set -e
 
 if [[ "$test_exit_code" == "0" ]]; then
     echo "Tests passed. Enjoy the last 10 recent logs..."
