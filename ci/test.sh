@@ -26,6 +26,8 @@ set +e
 test_exit_code=$(cf run-task ${CLAMAV_REST_HOSTNAME}-test -c "tasks/run-tests.sh" -w)
 set -e
 
+echo "Test exit code: $test_exit_code"
+
 if [[ "$test_exit_code" == "0" ]]; then
     echo "Tests passed. Enjoy the last 10 recent logs..."
     echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent | tail -n 10)"
