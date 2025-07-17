@@ -84,7 +84,7 @@ resources:
   icon: github-circle
   check_every: 10s
   source:
-    branch: develop
+    branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [ci/pipeline.yml]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
@@ -94,7 +94,7 @@ resources:
   icon: github-circle
   check_every: 10s
   source:
-    branch: develop
+    branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
     ignore_paths: [ci/pipeline.yml]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
