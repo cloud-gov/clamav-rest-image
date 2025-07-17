@@ -1,6 +1,6 @@
 ---
 applications:
-- name: ((name))
+- name: ((app_name))
   instances: 1
   memory: 4G
   docker:
