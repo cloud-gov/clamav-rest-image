@@ -81,7 +81,7 @@ if [[ "$fail_count" != 0 ]]; then
     echo "Tests failed. $fail_count FAILED out of $total_count."
     exit 1
 else 
-    echo "Tests complete. $total_count PASSED. 0 FAILED."
+    echo "Tests complete. $test_count PASSED. 0 FAILED."
     exit 0
 fi
 
