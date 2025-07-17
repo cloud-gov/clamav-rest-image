@@ -37,6 +37,6 @@ else
     echo " "
     echo "Here are all the recent logs to help you sort it out."
     echo " "
-    echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent)
+    echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent)"
     exit 1
 fi
