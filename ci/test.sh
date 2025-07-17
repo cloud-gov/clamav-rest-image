@@ -23,10 +23,9 @@ cf push \
 cf add-network-policy ${CLAMAV_REST_HOSTNAME}-test ${CLAMAV_REST_HOSTNAME}
 
 set +e
-test_exit_code=$(cf run-task ${CLAMAV_REST_HOSTNAME}-test -c "tasks/run-tests.sh" -w)
+cf run-task ${CLAMAV_REST_HOSTNAME}-test -c "tasks/run-tests.sh" -w
+test_exit_code=$?
 set -e
-
-echo "Test exit code: $test_exit_code"
 
 if [[ "$test_exit_code" == "0" ]]; then
     echo "Tests passed. Enjoy the last 10 recent logs..."
