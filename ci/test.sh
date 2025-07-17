@@ -29,8 +29,8 @@ set -e
 
 if [[ "$test_exit_code" == "0" ]]; then
     echo "All tests passed."
-    echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent | tail -n 20 | grep 'OUT PASSED')"
-    echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent | tail -n 20 | grep 'OUT Tests complete')"
+    echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent | tail -n 25 | grep 'OUT PASSED')"
+    echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent | tail -n 25 | grep 'OUT Tests complete')"
 else 
     echo "Tests failed. Here are the recent logs to help you figure out why..."
     echo "$(cf logs ${CLAMAV_REST_HOSTNAME}-test --recent)"    
