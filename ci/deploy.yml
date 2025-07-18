@@ -1,7 +1,7 @@
 platform: linux
 inputs:
   - name: source
-  - name: clamav-rest-image
+  - name: clamav-rest-candidate-image
 
 params:
   CF_API: 

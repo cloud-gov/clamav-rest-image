@@ -2,8 +2,8 @@
 
 set -e
 
-ecr_repository=$(cat clamav-rest-image/repository)
-image_version=$(cat clamav-rest-image/tag)
+ecr_repository=$(cat clamav-rest-candidate-image/repository)
+image_version=$(cat clamav-rest-candidate-image/tag)
 
 cf api $CF_API
 cf auth
