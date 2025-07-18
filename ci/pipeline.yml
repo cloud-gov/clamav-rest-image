@@ -13,11 +13,11 @@ jobs:
   - set_pipeline: self
     file: pipeline-source/ci/pipeline.yml
 
-- name: dev
+- name: test
   serial: true
   plan:
   - in_parallel:
-    - get: clamav-rest-image
+    - get: clamav-rest-candidate-image
       params: {skip_download: true}
       trigger: true
     - get: general-task
@@ -59,6 +59,21 @@ jobs:
       CF_USERNAME: ((dev-cf-username))
       CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
 
+- name: publish
+  serial: true
+  plan:  
+  - get: clamav-rest-candidate-image
+    params: {format: oci}
+    passed: [test]
+    trigger: true
+  - load_var: image_tag
+    file: clamav-rest-candidate-image/tag
+    format: trim
+  - put: clamav-rest-image
+    params:
+      image: clamav-rest-candidate-image/image.tar
+      version: ((.:image_tag))
+
 resources:
 
 - name: clamav-rest-image
@@ -67,6 +82,15 @@ resources:
     aws_access_key_id: ((ecr_aws_key))
     aws_secret_access_key: ((ecr_aws_secret))
     repository: clamav-rest
+    aws_region: us-gov-west-1
+    tag: latest
+
+- name: clamav-rest-candidate-image
+  type: registry-image
+  source:
+    aws_access_key_id: ((ecr_aws_key))
+    aws_secret_access_key: ((ecr_aws_secret))
+    repository: clamav-rest-candidate
     aws_region: us-gov-west-1
     tag: latest
 
@@ -84,7 +108,7 @@ resources:
   icon: github-circle
   check_every: 10s
   source:
-    branch: main
+    branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [ci/pipeline.yml]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
@@ -94,7 +118,7 @@ resources:
   icon: github-circle
   check_every: 10s
   source:
-    branch: main
+    branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
     ignore_paths: [ci/pipeline.yml]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
