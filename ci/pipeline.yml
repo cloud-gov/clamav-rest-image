@@ -73,6 +73,7 @@ jobs:
     params:
       image: clamav-rest-candidate-image/image.tar
       version: ((.:image_tag))
+      additional_tags: latest
 
 resources:
 
