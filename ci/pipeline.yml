@@ -83,7 +83,8 @@ resources:
     aws_secret_access_key: ((ecr_aws_secret))
     repository: clamav-rest
     aws_region: us-gov-west-1
-    tag: latest
+    tag_regex: "*"
+    created_at_sort: true
 
 - name: clamav-rest-candidate-image
   type: registry-image
@@ -92,7 +93,8 @@ resources:
     aws_secret_access_key: ((ecr_aws_secret))
     repository: clamav-rest-candidate
     aws_region: us-gov-west-1
-    tag: latest
+    tag_regex: "*"
+    created_at_sort: true
 
 - name: general-task
   type: registry-image
