@@ -78,9 +78,7 @@ jobs:
       - name: clamav-rest-candidate-image
       - name: general-task
       run: 
-        path: sh
-        args:
-        - cat clamav-rest-candidate-image/digest; cat clamav-rest-candidate-image/labels.json; clamav-rest-candidate-image/tag;
+        path: cat clamav-rest-candidate-image/digest; cat clamav-rest-candidate-image/labels.json; clamav-rest-candidate-image/tag;
   - put: clamav-rest-image
     params:
       image: clamav-rest-candidate-image/image.tar
