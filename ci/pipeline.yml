@@ -62,6 +62,7 @@ jobs:
 - name: publish
   serial: true
   plan:  
+  - get: general-task
   - get: clamav-rest-candidate-image
     params: {format: oci}
     passed: [test]
