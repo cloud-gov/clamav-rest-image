@@ -62,7 +62,6 @@ jobs:
 - name: publish
   serial: true
   plan:  
-  - get: general-task
   - get: clamav-rest-candidate-image
     params: {format: oci}
     passed: [test]
@@ -70,26 +69,10 @@ jobs:
   - load_var: image_tag
     file: clamav-rest-candidate-image/tag
     format: trim
-  - task: debug
-    image: general-task
-    config:
-      platform: linux
-      inputs: 
-      - name: clamav-rest-candidate-image
-      - name: general-task
-      run: 
-        path: sh
-        args:
-        - -exc
-        - |
-          cat clamav-rest-candidate-image/digest 
-          cat clamav-rest-candidate-image/labels.json
-          cat clamav-rest-candidate-image/tag
   - put: clamav-rest-image
     params:
       image: clamav-rest-candidate-image/image.tar
-      version: ((.:image_tag))
-      # additional_tags: latest
+      additional_tags: ((.:image_tag))
 
 resources:
 
