@@ -71,14 +71,14 @@ jobs:
     format: trim
   - task: debug
     image: general-task
-    inputs: 
-    - name: clamav-rest-candidate-image
-    run: 
-      path: sh
-      args:
-      - -exc
-      - |
-        ls -R
+    config:
+      inputs: 
+      - name: clamav-rest-candidate-image
+      run: 
+        path: sh
+        args:
+        - -exc
+        - ls -R
   - put: clamav-rest-image
     params:
       image: clamav-rest-candidate-image/image.tar
