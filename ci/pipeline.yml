@@ -75,6 +75,7 @@ jobs:
       platform: linux
       inputs: 
       - name: clamav-rest-candidate-image
+      - name: general-task
       run: 
         path: ls
         args:
