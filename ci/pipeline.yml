@@ -62,10 +62,15 @@ jobs:
 - name: publish
   serial: true
   plan:  
-  - get: clamav-rest-candidate-image
-    params: {format: oci}
-    passed: [test]
-    trigger: true
+  - in_parallel:
+    - get: source
+      params: {depth: 1}
+      passed: test
+      trigger: true
+    - get: clamav-rest-candidate-image
+      params: {format: oci}
+      passed: [test]
+      trigger: true
   - load_var: image_tag
     file: clamav-rest-candidate-image/tag
     format: trim
