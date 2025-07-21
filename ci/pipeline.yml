@@ -1,6 +1,6 @@
 ---
 
-# deploy-clamav-rest
+# clamav-rest-image
 
 jobs:
 
@@ -49,7 +49,7 @@ jobs:
       CF_SPACE: acceptance-tests
       CF_USERNAME: ((dev-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
-      CLAMAV_REST_HOSTNAME: clamav-rest-weibel
+      CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
   - task: test
     image: general-task
     file: source/ci/test.yml
@@ -60,37 +60,37 @@ jobs:
       CF_SPACE: acceptance-tests
       CF_USERNAME: ((dev-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
-      CLAMAV_REST_HOSTNAME: clamav-rest-weibel
-  # - task: cleanup
-  #   image: general-task
-  #   file: source/ci/cleanup.yml
-  #   params:
-  #     CF_API: ((dev-cf-api-url))
-  #     CF_ORG: cloud-gov
-  #     CF_PASSWORD: ((dev-cf-password))
-  #     CF_SPACE: acceptance-tests
-  #     CF_USERNAME: ((dev-cf-username))
-  #     CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
+      CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
+  - task: cleanup
+    image: general-task
+    file: source/ci/cleanup.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: acceptance-tests
+      CF_USERNAME: ((dev-cf-username))
+      CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
 
-# - name: publish
-#   serial: true
-#   plan:  
-#   - in_parallel:
-#     - get: source
-#       params: {depth: 1}
-#       passed: [test]
-#       trigger: true
-#     - get: clamav-rest-candidate-image
-#       params: {format: oci}
-#       passed: [test]
-#       trigger: true
-#   - load_var: image_tag
-#     file: clamav-rest-candidate-image/tag
-#     format: trim
-#   - put: clamav-rest-image
-#     params:
-#       image: clamav-rest-candidate-image/image.tar
-#       additional_tags: source/.git/short_ref
+- name: publish
+  serial: true
+  plan:  
+  - in_parallel:
+    - get: source
+      params: {depth: 1}
+      passed: [test]
+      trigger: true
+    - get: clamav-rest-candidate-image
+      params: {format: oci}
+      passed: [test]
+      trigger: true
+  - load_var: image_tag
+    file: clamav-rest-candidate-image/tag
+    format: trim
+  - put: clamav-rest-image
+    params:
+      image: clamav-rest-candidate-image/image.tar
+      additional_tags: source/.git/short_ref
 
 resources:
 
@@ -104,16 +104,16 @@ resources:
     tag_regex: ".*"
     created_at_sort: true
 
-# - name: clamav-rest-image
-#   type: registry-image
-#   source:
-#     aws_access_key_id: ((ecr_aws_key))
-#     aws_secret_access_key: ((ecr_aws_secret))
-#     repository: clamav-rest
-#     aws_region: us-gov-west-1
-#     tag: latest
-#     tag_regex: ".*"
-#     created_at_sort: true
+- name: clamav-rest-image
+  type: registry-image
+  source:
+    aws_access_key_id: ((ecr_aws_key))
+    aws_secret_access_key: ((ecr_aws_secret))
+    repository: clamav-rest
+    aws_region: us-gov-west-1
+    tag: latest
+    tag_regex: ".*"
+    created_at_sort: true
 
 # - name: clamav-rest-release
 #   type: github-release
