@@ -84,7 +84,7 @@ jobs:
         - |
           cat clamav-rest-candidate-image/digest 
           cat clamav-rest-candidate-image/labels.json
-          clamav-rest-candidate-image/tag
+          cat clamav-rest-candidate-image/tag
   - put: clamav-rest-image
     params:
       image: clamav-rest-candidate-image/image.tar
