@@ -72,7 +72,7 @@ jobs:
   - put: clamav-rest-image
     params:
       image: clamav-rest-candidate-image/image.tar
-      additional_tags: ((.:image_tag))
+      additional_tags: source/.git/short_ref
 
 resources:
 
