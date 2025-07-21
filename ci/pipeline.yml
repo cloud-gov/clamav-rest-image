@@ -69,6 +69,16 @@ jobs:
   - load_var: image_tag
     file: clamav-rest-candidate-image/tag
     format: trim
+  - task: debug
+    image: general-task
+    inputs: 
+    - name: clamav-rest-candidate-image
+    run: 
+      path: sh
+      args:
+      - -exc
+      - |
+        ls -R
   - put: clamav-rest-image
     params:
       image: clamav-rest-candidate-image/image.tar
