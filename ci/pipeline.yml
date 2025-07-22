@@ -25,7 +25,7 @@ jobs:
     file: source/ci/get-go-version.yml
   - task: update-versions
     image: general-task
-    file: source/ci/deploy.yml    
+    file: source/ci/update-versions.yml    
   - put: source-pull-request
     params:
       path: source-pull-request
