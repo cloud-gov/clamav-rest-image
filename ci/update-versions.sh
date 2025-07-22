@@ -1,7 +1,7 @@
 #!/bin/bash
 
 clamav_rest_version=$(cat clamav-rest-release/version)
-go_version=$(cat golang-source/.git/ref)
+go_version=$(cat go-version/version)
 
 pushd source
     echo "CLAMAV_REST_VERSION=${clamav_rest_version}" > image/args/build-args.conf

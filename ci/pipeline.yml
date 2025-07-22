@@ -18,9 +18,11 @@ jobs:
   - in_parallel:
     - get: clamav-rest-release
       trigger: true
-    - get: golang-source
-      trigger: true
+    - get: general-task
     - get: source
+  - task: get-go-version
+    image: general-task
+    file: source/ci/get-go-version.yml
   - task: update-versions
     image: general-task
     file: source/ci/deploy.yml    
@@ -135,14 +137,6 @@ resources:
     repository: general-task
     aws_region: us-gov-west-1
     tag: latest
-
-- name: golang-source
-  type: git
-  check_every: 1h
-  source:
-    fetch_tags: true
-    tag_regex: "go?([^go].*)"
-    uri: https://github.com/golang/go.git
   
 - name: pipeline-source
   type: git
