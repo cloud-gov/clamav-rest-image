@@ -136,19 +136,16 @@ resources:
     aws_region: us-gov-west-1
     tag: latest
 
-- name: golang-release
-  type: github-release
+- name: golang-source
+  type: git
   check_every: 1h
   source:
-    access_token: ((cg-ci-bot-ghtoken))
-    owner: golang
-    repository: go
     tag_filter: "v?([^v].*)"
-
+    uri: https://github.com/golang/go.git
+  
 - name: pipeline-source
   type: git
   icon: github-circle
-  check_every: 10s
   source:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
