@@ -5,6 +5,8 @@ go_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
 
 git config --global user.email "no-reply@cloud.gov"
 git config --global user.name "cg-ci-bot"
+git config commit.gpgsign true
+
 
 pushd source
     echo "CLAMAV_REST_VERSION=${clamav_rest_version}" > image/args/build-args.conf
