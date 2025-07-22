@@ -41,6 +41,7 @@ jobs:
     - get: general-task
     - get: source
       params: {depth: 1}
+      resource: build-source
       trigger: true
   - task: deploy
     image: general-task
@@ -84,6 +85,7 @@ jobs:
     - get: source
       params: {depth: 1}
       passed: [test]
+      resource: build-source
       trigger: true
     - get: clamav-rest-candidate-image
       params: {format: oci}
@@ -137,6 +139,16 @@ resources:
     repository: general-task
     aws_region: us-gov-west-1
     tag: latest
+
+- name: build-source
+  type: git
+  icon: github-circle
+  check_every: 10s
+  source:
+    branch: develop
+    commit_verification_keys: ((cloud-gov-pgp-keys))
+    paths: [image/**/*]
+    uri: https://github.com/cloud-gov/clamav-rest-image.git
   
 - name: pipeline-source
   type: git
@@ -154,7 +166,6 @@ resources:
   source:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
-    ignore_paths: [ci/*]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
 
 - name: source-pull-request
