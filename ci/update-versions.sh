@@ -9,5 +9,4 @@ pushd source
     cat image/args/build-args.conf
     git checkout -b depenedencies
     git commit -m "update depenedencies" image/args/build-args.conf
-    git push origin dependencies
 popd
