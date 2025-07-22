@@ -13,24 +13,27 @@ jobs:
   - set_pipeline: self
     file: pipeline-source/ci/pipeline.yml
 
-- name: dependency-pr
-  plan:
-  - in_parallel:
-    - get: clamav-rest-release
-      trigger: true
-    - get: general-task
-    - get: source
-  - task: update-versions
-    image: general-task
-    file: source/ci/update-versions.yml   
-  - put: source
-    params:
-      branch: depenedencies
-      repository: source
-  - put: source-pull-request
-    params:
-      path: source-pull-request
-      description: "Updates the clamav-rest and/or golang versions."
+# - name: dependency-pr
+#   plan:
+#   - in_parallel:
+#     - get: clamav-rest-release
+#       trigger: true
+#     - get: general-task
+#     - get: source
+#   - task: update-versions
+#     image: general-task
+#     file: source/ci/update-versions.yml   
+#     params:
+#       GPG_ID: ((cg-ci-bot-gpgid))
+#       GPG_
+#   - put: source
+#     params:
+#       branch: depenedencies
+#       repository: source
+#   - put: source-pull-request
+#     params:
+#       path: source-pull-request
+#       description: "Updates the clamav-rest and/or golang versions."
 
 - name: test
   serial: true
@@ -40,10 +43,11 @@ jobs:
       params: {skip_download: true}
       trigger: true
     - get: general-task
-    - get: source
+    - get: build-source
       params: {depth: 1}
-      resource: build-source
       trigger: true
+    - get: source 
+      params: {depth: 1}
   - task: deploy
     image: general-task
     file: source/ci/deploy.yml
@@ -123,14 +127,14 @@ resources:
     tag_regex: ".*"
     created_at_sort: true
 
-- name: clamav-rest-release
-  type: github-release
-  check_every: 1h
-  source:
-    access_token: ((cg-ci-bot-ghtoken))
-    owner: ajilach
-    repository: clamav-rest
-    tag_filter: ".*"
+# - name: clamav-rest-release
+#   type: github-release
+#   check_every: 1h
+#   source:
+#     access_token: ((cg-ci-bot-ghtoken))
+#     owner: ajilach
+#     repository: clamav-rest
+#     tag_filter: ".*"
 
 - name: general-task
   type: registry-image
@@ -144,7 +148,6 @@ resources:
 - name: build-source
   type: git
   icon: github-circle
-  check_every: 10s
   source:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
@@ -163,7 +166,6 @@ resources:
 - name: source
   type: git
   icon: github-circle
-  check_every: 10s
   source:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
@@ -176,13 +178,13 @@ resources:
     uri: git@github.com:cloud-gov/clamav-rest-image.git
     username: cg-ci-bot
 
-- name: source-pull-request
-  type: pull-request
-  check_every: 1m
-  source:
-    repository: cloud-gov/clamav-rest-image
-    access_token: ((cg-ci-bot-ghtoken))
-    base_branch: develop
+# - name: source-pull-request
+#   type: pull-request
+#   check_every: 1m
+#   source:
+#     repository: cloud-gov/clamav-rest-image
+#     access_token: ((cg-ci-bot-ghtoken))
+#     base_branch: develop
 
 resource_types:
 
@@ -195,14 +197,14 @@ resource_types:
     aws_region: us-gov-west-1
     tag: latest
 
-- name: pull-request
-  type: registry-image
-  source:
-    aws_access_key_id: ((ecr_aws_key))
-    aws_secret_access_key: ((ecr_aws_secret))
-    repository: github-pr-resource
-    aws_region: us-gov-west-1
-    tag: latest
+# - name: pull-request
+#   type: registry-image
+#   source:
+#     aws_access_key_id: ((ecr_aws_key))
+#     aws_secret_access_key: ((ecr_aws_secret))
+#     repository: github-pr-resource
+#     aws_region: us-gov-west-1
+#     tag: latest
 
 - name: registry-image
   type: registry-image
