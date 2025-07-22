@@ -140,7 +140,7 @@ resources:
   type: git
   check_every: 1h
   source:
-    tag_filter: "v?([^v].*)"
+    tag_regex: "go?([^go].*)"
     uri: https://github.com/golang/go.git
   
 - name: pipeline-source
