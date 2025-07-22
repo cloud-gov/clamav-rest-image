@@ -140,6 +140,7 @@ resources:
   type: git
   check_every: 1h
   source:
+    fetch_tags: true
     tag_regex: "go?([^go].*)"
     uri: https://github.com/golang/go.git
   
