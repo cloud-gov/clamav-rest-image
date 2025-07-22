@@ -162,7 +162,7 @@ resources:
   source:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
-    ignore_paths: [ci/pipeline.yml]
+    ignore_paths: [ci/*]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
 
 - name: source-pull-request
