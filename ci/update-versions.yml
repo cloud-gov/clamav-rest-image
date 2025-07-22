@@ -4,5 +4,8 @@ inputs:
   - name: clamav-rest-release
   - name: source
 
+outputs:
+  - name: source
+  
 run:
   path: source/ci/update-versions.sh
