@@ -18,7 +18,7 @@ jobs:
   - in_parallel:
     - get: clamav-rest-release
       trigger: true
-    - get: golang-release
+    - get: golang-source
       trigger: true
     - get: source
   - task: update-versions
