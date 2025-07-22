@@ -26,6 +26,7 @@ jobs:
   - put: source
     params:
       branch: depenedencies
+      repository: cloud-gov/clamav-rest-image
   - put: source-pull-request
     params:
       path: source-pull-request
