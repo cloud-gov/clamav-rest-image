@@ -130,14 +130,14 @@ resources:
     tag_regex: ".*"
     created_at_sort: true
 
-# - name: clamav-rest-release
-#   type: github-release
-#   check_every: 1h
-#   source:
-#     access_token: ((cg-ci-bot-ghtoken))
-#     owner: ajilach
-#     repository: clamav-rest
-#     tag_filter: ".*"
+- name: clamav-rest-release
+  type: github-release
+  check_every: 1h
+  source:
+    access_token: ((cg-ci-bot-ghtoken))
+    owner: ajilach
+    repository: clamav-rest
+    tag_filter: ".*"
 
 - name: general-task
   type: registry-image
@@ -181,13 +181,13 @@ resources:
     uri: git@github.com:cloud-gov/clamav-rest-image.git
     username: cg-ci-bot
 
-# - name: source-pull-request
-#   type: pull-request
-#   check_every: 1m
-#   source:
-#     repository: cloud-gov/clamav-rest-image
-#     access_token: ((cg-ci-bot-ghtoken))
-#     base_branch: develop
+- name: source-pull-request
+  type: pull-request
+  check_every: 1m
+  source:
+    repository: cloud-gov/clamav-rest-image
+    access_token: ((cg-ci-bot-ghtoken))
+    base_branch: develop
 
 resource_types:
 
@@ -200,14 +200,14 @@ resource_types:
     aws_region: us-gov-west-1
     tag: latest
 
-# - name: pull-request
-#   type: registry-image
-#   source:
-#     aws_access_key_id: ((ecr_aws_key))
-#     aws_secret_access_key: ((ecr_aws_secret))
-#     repository: github-pr-resource
-#     aws_region: us-gov-west-1
-#     tag: latest
+- name: pull-request
+  type: registry-image
+  source:
+    aws_access_key_id: ((ecr_aws_key))
+    aws_secret_access_key: ((ecr_aws_secret))
+    repository: github-pr-resource
+    aws_region: us-gov-west-1
+    tag: latest
 
 - name: registry-image
   type: registry-image
