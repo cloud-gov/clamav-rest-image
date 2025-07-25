@@ -12,6 +12,12 @@ pushd source
     echo "CLAMAV_REST_VERSION=${clamav_rest_version}" > image/args/build-args.conf
     echo "GO_VERSION=${go_version}" >> image/args/build-args.conf
     cat image/args/build-args.conf
-    git checkout -b depenedencies
+
+    existing_branch=$(git branch --list | grep -w depenedencies)
+    if [ -z "$existing_branch" ]; then
+        git checkout -b depenedencies
+    else 
+        git checkout depenedencies
+    fi
     git commit -S -m "update depenedencies" image/args/build-args.conf
 popd
