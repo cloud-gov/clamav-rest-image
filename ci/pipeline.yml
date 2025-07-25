@@ -166,6 +166,14 @@ resources:
     paths: [ci/pipeline.yml]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
 
+- name: dependencies-branch
+  type: git
+  icon: github-circle
+  source:
+    branch: dedependenciesvelop
+    commit_verification_keys: ((cloud-gov-pgp-keys))
+    uri: https://github.com/cloud-gov/clamav-rest-image.git
+
 - name: source
   type: git
   icon: github-circle
