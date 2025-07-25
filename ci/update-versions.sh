@@ -9,20 +9,18 @@ pushd source
     # gpg setup
     ci/setup-gpg.sh
 
+    branch_name=dependencies
+
     echo "CLAMAV_REST_VERSION=${clamav_rest_version}" > image/args/build-args.conf
     echo "GO_VERSION=${go_version}" >> image/args/build-args.conf
     cat image/args/build-args.conf
 
     set -x
 
-    git branch -r --list
-    git rev-parse --verify dependencies >/dev/null 2>&1
-
-    existing_branch=$(git branch -r --list | grep -w depenedencies)
-    if [[ -z "$existing_branch" ]]; then
-        git checkout -b depenedencies
+    if ! git rev-parse --verify $branch_name >/dev/null 2>&1; then
+        git checkout -b $branch_name
     else 
-        git checkout depenedencies
+        git checkout $branch_name
     fi
     git commit -S -m "update depenedencies" image/args/build-args.conf
 popd
