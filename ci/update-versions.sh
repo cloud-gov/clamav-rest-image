@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 clamav_rest_version=$(cat clamav-rest-release/version)
 go_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
 
