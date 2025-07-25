@@ -7,5 +7,12 @@ inputs:
 outputs:
   - name: source
   
+params:
+  GPG_EMAIL:
+  GPG_PASSPHRASE:
+  GPG_PRIVATE_KEY:
+  GPG_PUBLIC_KEY:
+  GPG_USERNAME:
+
 run:
   path: source/ci/update-versions.sh

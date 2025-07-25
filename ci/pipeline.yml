@@ -13,27 +13,30 @@ jobs:
   - set_pipeline: self
     file: pipeline-source/ci/pipeline.yml
 
-# - name: dependency-pr
-#   plan:
-#   - in_parallel:
-#     - get: clamav-rest-release
-#       trigger: true
-#     - get: general-task
-#     - get: source
-#   - task: update-versions
-#     image: general-task
-#     file: source/ci/update-versions.yml   
-#     params:
-#       GPG_ID: ((cg-ci-bot-gpgid))
-#       GPG_
-#   - put: source
-#     params:
-#       branch: depenedencies
-#       repository: source
-#   - put: source-pull-request
-#     params:
-#       path: source-pull-request
-#       description: "Updates the clamav-rest and/or golang versions."
+- name: dependency-pr
+  plan:
+  - in_parallel:
+    - get: clamav-rest-release
+      trigger: true
+    - get: general-task
+    - get: source
+  - task: update-versions
+    image: general-task
+    file: source/ci/update-versions.yml   
+    params:
+      GPG_EMAIL: ((cg-ci-bot-gpg.email))
+      GPG_PASSPHRASE: ((cg-ci-bot-gpg.passphrase))
+      GPG_PRIVATE_KEY: ((cg-ci-bot-gpg.private_key))
+      GPG_PUBLIC_KEY: ((cg-ci-bot-gpg.public_key))
+      GPG_USERNAME: ((cg-ci-bot-gpg.username))
+  - put: source
+    params:
+      branch: depenedencies
+      repository: source
+  - put: source-pull-request
+    params:
+      path: source-pull-request
+      description: "Updates the clamav-rest and/or golang versions."
 
 - name: test
   serial: true
