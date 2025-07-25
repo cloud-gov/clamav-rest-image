@@ -16,10 +16,12 @@ gpgconf --reload gpg-agent
 
 echo "$GPG_PUBLIC_KEY" > public.key
 gpg --import public.key
+rm public.key
 echo "Public key imported"
 
 echo "$GPG_PRIVATE_KEY" > private.key
 gpg --import --batch private.key
+rm private.key
 echo "Private key imported"
 
 secret_keys=$(gpg --list-secret-keys --with-colons "$GPG_USERNAME <$GPG_EMAIL>")
@@ -28,6 +30,7 @@ secret_keys=$(gpg --list-secret-keys --with-colons "$GPG_USERNAME <$GPG_EMAIL>")
 gpg_fingerprint=$(echo "$secret_keys" | grep "fpr:" | head -n 1 | awk -F "fpr:*" '{print $2}' | awk -F ":" '{print $1}')
 echo "${gpg_fingerprint}:6:" > ownertrust.txt
 gpg --import-ownertrust < ownertrust.txt
+rm ownertrust.txt
 echo "Ownertrust updated"
 
 gpg_secret_keyline=$(echo "$secret_keys" | grep "sec")
