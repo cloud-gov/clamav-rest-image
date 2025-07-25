@@ -15,7 +15,7 @@ pushd source
 
     set -x
 
-    git fetch
+    git fetch -f
     existing_branch=$(git branch --list | grep -w depenedencies)
     if [[ -z "$existing_branch" ]]; then
         git checkout -b depenedencies
