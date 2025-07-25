@@ -17,7 +17,7 @@ pushd source
 
     git fetch
     existing_branch=$(git branch --list | grep -w depenedencies)
-    if [ -z "$existing_branch" ]; then
+    if [[ -z "$existing_branch" ]]; then
         git checkout -b depenedencies
     else 
         git checkout depenedencies
