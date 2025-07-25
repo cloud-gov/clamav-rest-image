@@ -18,6 +18,11 @@ gpgconf --reload gpg-agent
 echo "GPG agent reloaded"
 
 echo "$GPG_PUBLIC_KEY" > public.key
+
+echo " "
+cat public.key
+echo " "
+
 gpg --import public.key
 
 echo "Public key imported"
