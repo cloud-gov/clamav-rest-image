@@ -13,6 +13,8 @@ pushd source
     echo "GO_VERSION=${go_version}" >> image/args/build-args.conf
     cat image/args/build-args.conf
 
+    set -x
+
     existing_branch=$(git branch --list | grep -w depenedencies)
     if [ -z "$existing_branch" ]; then
         git checkout -b depenedencies
