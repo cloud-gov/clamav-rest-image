@@ -17,6 +17,9 @@ pushd source
 
     set -x
 
+
+    git remote set-url origin https://github.com/cloud-gov/clamav-rest-image
+    
     cat .git/config
 
     GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git fetch --all
