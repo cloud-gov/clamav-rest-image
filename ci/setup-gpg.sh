@@ -10,6 +10,10 @@ echo "allow-preset-passphrase" > ~/.gnupg/gpg-agent.conf
 echo "default-cache-ttl 120" >> ~/.gnupg/gpg-agent.conf
 echo "max-cache-ttl 240" >> ~/.gnupg/gpg-agent.conf
 
+sudo chown -R $(whoami) ~/.gnupg
+find ~/.gnupg -type d -exec chmod 700 {} \;
+find ~/.gnupg -type f -exec chmod 600 {} \;
+
 echo "gpg agent config updated"
 
 gpgconf --reload gpg-agent
