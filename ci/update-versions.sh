@@ -15,7 +15,7 @@ pushd source
 
     set -x
 
-    git fetch -f
+    GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null" git fetch
     existing_branch=$(git branch --list | grep -w depenedencies)
     if [[ -z "$existing_branch" ]]; then
         git checkout -b depenedencies
