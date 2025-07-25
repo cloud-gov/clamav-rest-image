@@ -17,10 +17,11 @@ pushd source
 
     set -x
 
-    if ! git rev-parse --verify $branch_name >/dev/null 2>&1; then
-        git checkout -b $branch_name
+    existing_branch=$(git branch -r --list | grep -w "origin/${branch_name}")
+    if [[ -z "$existing_branch" ]]; then
+        git checkout -b ${branch_name}
     else 
-        git checkout $branch_name
+        git checkout ${branch_name}
     fi
     git commit -S -m "update depenedencies" image/args/build-args.conf
 popd
