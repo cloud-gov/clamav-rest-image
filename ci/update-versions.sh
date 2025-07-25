@@ -15,6 +15,9 @@ pushd source
 
     set -x
 
+    git branch -r --list
+    git rev-parse --verify dependencies >/dev/null 2>&1
+
     existing_branch=$(git branch -r --list | grep -w depenedencies)
     if [[ -z "$existing_branch" ]]; then
         git checkout -b depenedencies
