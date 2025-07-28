@@ -24,6 +24,7 @@ jobs:
     image: general-task
     file: source/ci/update-versions.yml   
     params:
+      GITHUB_SSH_PRIVATE_KEY: ((cg-ci-bot-sshkey.private_key))
       GPG_EMAIL: ((cg-ci-bot-gpg.email))
       GPG_PASSPHRASE: ((cg-ci-bot-gpg.passphrase))
       GPG_PRIVATE_KEY: ((cg-ci-bot-gpg.private_key))
