@@ -13,7 +13,7 @@ pushd source
 
     set -x 
 
-    git pull --rebase
+    git fetch --all
     branch_name="dependencies-branch"
     dependencies_branch=$(git branch -r --list | grep $branch_name)
     if [ -z "$dependencies_branch" ]; then
