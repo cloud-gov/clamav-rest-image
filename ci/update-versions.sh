@@ -13,6 +13,7 @@ pushd source
 
     set -x 
 
+    git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
     git remote update
     git fetch --all
     branch_name="dependencies"
