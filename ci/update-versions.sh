@@ -17,7 +17,11 @@ pushd source
     git remote update
     git fetch --all
     branch_name="dependencies"
+    echo "debug 1"
+    git branch -r --list | grep -w "origin/${branch_name}"
+    echo "debug 2"
     dependencies_branch=$(git branch -r --list | grep -w "origin/${branch_name}")
+    echo "debug 3"
     echo "dependencies_branch = $dependencies_branch"
     if [[ -z "$dependencies_branch" ]]; then
         git checkout -b $branch_name
