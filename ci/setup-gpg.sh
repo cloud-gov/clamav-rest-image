@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+set +x
 
 export GPG_TTY=$(tty)
 
