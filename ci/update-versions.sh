@@ -18,10 +18,12 @@ pushd source
     git fetch --all
     branch_name="dependencies"
     echo "debug 1"
-    git branch -r --list | grep -w "origin/${branch_name}"
+    branches=$(git branch -r --list) 
     echo "debug 2"
-    dependencies_branch=$(git branch -r --list | grep -w "origin/${branch_name}")
+    echo "$branches" | grep -w "origin/${branch_name}"
     echo "debug 3"
+    dependencies_branch=$(git branch -r --list | grep -w "origin/${branch_name}")
+    echo "debug 4"
     echo "dependencies_branch = $dependencies_branch"
     if [[ -z "$dependencies_branch" ]]; then
         git checkout -b $branch_name
