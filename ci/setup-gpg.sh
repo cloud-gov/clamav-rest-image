@@ -46,7 +46,7 @@ gpg_secret_keyid="${gpg_secret_key_details[5]}"
 git config --global user.email "$GPG_EMAIL"
 git config --global user.name "$GPG_USERNAME"
 git config --global commit.gpgSign true
-git config --global user.signingkey ${gpg_secret_keyid}
+# git config --global user.signingkey ${gpg_secret_keyid}
 echo "Git configured"
 
 # labeled as "grp"
