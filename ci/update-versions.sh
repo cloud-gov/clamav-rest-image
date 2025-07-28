@@ -17,14 +17,7 @@ pushd source
     git remote update
     git fetch --all
     branch_name="dependencies"
-    echo "debug 1"
-    branches=$(git branch -r --list) 
-    echo "debug 2"
-    echo "$branches" | grep -w "origin/${branch_name}"
-    echo "debug 3"
-    dependencies_branch=$(git branch -r --list | grep -w "origin/${branch_name}")
-    echo "debug 4"
-    echo "dependencies_branch = $dependencies_branch"
+    dependencies_branch=$(git branch -r --list | { grep -w "origin/${branch_name}" || test $? = 1; } )
     if [[ -z "$dependencies_branch" ]]; then
         git checkout -b $branch_name
         echo "Created new branch: $branch_name"
