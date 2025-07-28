@@ -13,8 +13,9 @@ pushd source
 
     set -x 
 
+    git remote update
     git fetch --all
-    branch_name="dependencies-branch"
+    branch_name="dependencies"
     dependencies_branch=$(git branch -r --list | grep $branch_name)
     if [ -z "$dependencies_branch" ]; then
         git checkout -b $branch_name
