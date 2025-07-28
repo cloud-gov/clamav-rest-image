@@ -31,7 +31,7 @@ jobs:
       GPG_USERNAME: ((cg-ci-bot-gpg.username))
   - put: source
     params:
-      branch: depenedencies
+      branch: dependencies
       repository: source
   - put: source-pull-request
     params:
@@ -164,14 +164,6 @@ resources:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [ci/pipeline.yml]
-    uri: https://github.com/cloud-gov/clamav-rest-image.git
-
-- name: dependencies-branch
-  type: git
-  icon: github-circle
-  source:
-    branch: dedependenciesvelop
-    commit_verification_keys: ((cloud-gov-pgp-keys))
     uri: https://github.com/cloud-gov/clamav-rest-image.git
 
 - name: source

@@ -2,8 +2,6 @@ platform: linux
 
 inputs:
   - name: clamav-rest-release
-  - name: dependencies-branch
-    optional: true
   - name: source
 
 outputs:
