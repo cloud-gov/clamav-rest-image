@@ -8,8 +8,8 @@ go_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
 pushd source
 
 
-    ci/setup-github.sh
-    ci/setup-gpg.sh
+    source ci/setup-github.sh
+    source ci/setup-gpg.sh
 
     set -x 
 
