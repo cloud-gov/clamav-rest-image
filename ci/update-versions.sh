@@ -14,7 +14,7 @@ pushd source
     set -x 
 
     git pull --rebase
-    branch_name=$(dependencies-branch)
+    branch_name="dependencies-branch"
     dependencies-branch=$(git branch -r list | grep $branch_name)
     if [ -z $branch_name ]; then
         git checkout -b $branch_name
