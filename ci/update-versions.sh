@@ -18,10 +18,13 @@ pushd source
     git fetch --all
     branch_name="dependencies"
     dependencies_branch=$(git branch -r --list | grep -w "origin/${branch_name}")
+    echo "dependencies_branch = $dependencies_branch"
     if [[ -z "$dependencies_branch" ]]; then
         git checkout -b $branch_name
+        echo "Created new branch: $branch_name"
     else 
         git checkout $branch_name
+        echo "Using existing branch: $branch_name"
     fi
         
     echo "CLAMAV_REST_VERSION=${clamav_rest_version}" > image/args/build-args.conf
