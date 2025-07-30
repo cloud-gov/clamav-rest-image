@@ -11,9 +11,9 @@ cd source/test
 
 
 if [[ "$CLAMAV_REST_DOMAIN" == "apps.internal" ]]; then
-    clamav_rest_endpoint="https://${CLAMAV_REST_HOSTNAME}.${CLAMAV_REST_DOMAIN}:443"
+    clamav_rest_endpoint="http://${CLAMAV_REST_HOSTNAME}.${CLAMAV_REST_DOMAIN}"
 else 
-    clamav_rest_endpoint="https://${CLAMAV_REST_HOSTNAME}.${CLAMAV_REST_DOMAIN}"
+    clamav_rest_endpoint="http://${CLAMAV_REST_HOSTNAME}.${CLAMAV_REST_DOMAIN}"
 fi 
 
 cf push \
