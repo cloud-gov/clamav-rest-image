@@ -19,6 +19,7 @@ jobs:
     - get: clamav-rest-release
       trigger: true
     - get: general-task
+    - get: pipeline-tasks
     - get: source
   - task: update-versions
     image: general-task
@@ -159,6 +160,15 @@ resources:
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [ci/pipeline.yml]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
+
+- name: pipeline-tasks
+  type: git
+  icon: github-circle
+  source:
+    branch: develop
+    commit_verification_keys: ((cloud-gov-pgp-keys))
+    paths: [setup-commit-signing.sh]
+    uri: https://github.com/cloud-gov/pipeline-tasks.git
 
 - name: source
   type: git

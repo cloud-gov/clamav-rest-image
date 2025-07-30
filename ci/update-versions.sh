@@ -7,7 +7,7 @@ go_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
 
 pushd source
 
-    source ci/setup-commit-signing.sh
+    source ../pipeline-tasks/setup-commit-signing.sh
 
     git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
     git remote update
