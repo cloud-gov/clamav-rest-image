@@ -165,7 +165,6 @@ resources:
   type: git
   icon: github-circle
   source:
-    branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [setup-commit-signing.sh]
     uri: https://github.com/cloud-gov/pipeline-tasks.git
