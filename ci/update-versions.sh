@@ -7,7 +7,6 @@ go_version=$(curl -s "https://go.dev/VERSION?m=text" | head -n 1)
 
 pushd source
 
-
     source ci/setup-github.sh
     source ci/setup-gpg.sh
 
@@ -31,5 +30,24 @@ pushd source
     cat image/args/build-args.conf
 
     git commit -S -m "update depenedencies" image/args/build-args.conf
+    git push origin $branch_name
+
+    # Open a PR if one does not exist.
+    existing_pr_count=$(gh pr list --author "@cg-ci-bot" --label "dependencies" --json "author" | jq 'length')
+    if [[ 0 == "$existing_pr" ]]; then
+
+        # TODO Open a PR w/ GH_TOKEN & GH_REPO
+        GH_REPO=$(cat .git/config| grep url | head -n 1 | awk -F "url = " '{print $2}')
+        
+        body="
+        ## Changes proposed in this pull request\n \
+        - Dependencies updated in image/args/build-args.conf.\n\n \
+        ## Security considerations\n \
+        Updates are good.\n \
+        "
+
+        gh pr create --title "Dependencies updated" --body "$body" --label "dependencies"
+
+    fi
 
 popd

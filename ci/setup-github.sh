@@ -2,7 +2,7 @@
 
 set -e
 set +x
-echo "$GITHUB_SSH_PRIVATE_KEY" > ssh.key
+echo "$GH_SSH_PRIVATE_KEY" > ssh.key
 set -x
 chmod 600 ssh.key
 eval "$(ssh-agent -s)"

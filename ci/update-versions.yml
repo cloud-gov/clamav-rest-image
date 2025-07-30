@@ -8,6 +8,7 @@ outputs:
   - name: source
   
 params:
+  GH_SSH_PRIVATE_KEY:
   GPG_EMAIL:
   GPG_PASSPHRASE:
   GPG_PRIVATE_KEY:

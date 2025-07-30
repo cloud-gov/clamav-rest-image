@@ -24,20 +24,13 @@ jobs:
     image: general-task
     file: source/ci/update-versions.yml   
     params:
-      GITHUB_SSH_PRIVATE_KEY: ((cg-ci-bot-sshkey.private_key))
+      GH_SSH_PRIVATE_KEY: ((cg-ci-bot-sshkey.private_key))
+      GH_TOKEN: ((cg-ci-bot-ghtoken))
       GPG_EMAIL: ((cg-ci-bot-gpg.email))
       GPG_PASSPHRASE: ((cg-ci-bot-gpg.passphrase))
       GPG_PRIVATE_KEY: ((cg-ci-bot-gpg.private_key))
       GPG_PUBLIC_KEY: ((cg-ci-bot-gpg.public_key))
       GPG_USERNAME: ((cg-ci-bot-gpg.username))
-  - put: source
-    params:
-      branch: dependencies
-      repository: source
-  - put: source-pull-request
-    params:
-      path: source-pull-request
-      description: "Updates the clamav-rest and/or golang versions."
 
 - name: test
   serial: true
@@ -173,22 +166,7 @@ resources:
   source:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
-    git_config:
-    - name: "user.name"
-      value: "cg-ci-bot"
-    - name: "user.email"
-      value: "no-reply@cloud.gov"
-    private_key: ((cg-ci-bot-sshkey.private_key))
-    uri: git@github.com:cloud-gov/clamav-rest-image.git
-    username: cg-ci-bot
-
-- name: source-pull-request
-  type: pull-request
-  check_every: 1m
-  source:
-    repository: cloud-gov/clamav-rest-image
-    access_token: ((cg-ci-bot-ghtoken))
-    base_branch: develop
+    uri: https://github.com/cloud-gov/clamav-rest-image.git
 
 resource_types:
 
@@ -198,15 +176,6 @@ resource_types:
     aws_access_key_id: ((ecr_aws_key))
     aws_secret_access_key: ((ecr_aws_secret))
     repository: git-resource
-    aws_region: us-gov-west-1
-    tag: latest
-
-- name: pull-request
-  type: registry-image
-  source:
-    aws_access_key_id: ((ecr_aws_key))
-    aws_secret_access_key: ((ecr_aws_secret))
-    repository: github-pr-resource
     aws_region: us-gov-west-1
     tag: latest
 
