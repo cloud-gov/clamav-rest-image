@@ -20,7 +20,7 @@ cf push \
     --var clamav_rest_endpoint=${clamav_rest_endpoint} \
     --var app_name=${CLAMAV_REST_HOSTNAME}-test
 
-cf add-network-policy ${CLAMAV_REST_HOSTNAME}-test ${CLAMAV_REST_HOSTNAME} --port 443
+cf add-network-policy ${CLAMAV_REST_HOSTNAME}-test ${CLAMAV_REST_HOSTNAME} 
 
 set +e
 cf run-task ${CLAMAV_REST_HOSTNAME}-test -c "tasks/run-tests.sh" -w
