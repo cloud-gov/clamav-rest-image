@@ -7,6 +7,7 @@ set -x
 chmod 600 ssh.key
 eval "$(ssh-agent -s)"
 ssh-add ssh.key
+rm ssh.key
 
 mkdir -p ~/.ssh
 ssh-keyscan -t rsa -H github.com >> ~/.ssh/known_hosts 
