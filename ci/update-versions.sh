@@ -10,8 +10,6 @@ pushd source
     source ci/setup-github.sh
     source ci/setup-gpg.sh
 
-    set -x 
-
     git config remote.origin.fetch "+refs/heads/*:refs/remotes/origin/*"
     git remote update
     git fetch --all
@@ -45,14 +43,17 @@ pushd source
 
             GH_REPO=$(cat .git/config| grep url | head -n 1 | awk -F "url = " '{print $2}')
             
-            body="
-            ## Changes proposed in this pull request\n \
-            - Dependencies updated in image/args/build-args.conf.\n\n \
-            ## Security considerations\n \
-            Updates are good.\n \
-            "
+            body=$(cat <<'EOF'
+## Changes proposed in this pull request 
+- Dependencies updated in image/args/build-args.conf. 
 
-            gh pr create --title "Dependencies updated" --body "$body" --label "dependencies"
+## Security considerations 
+Updates are good. 
+EOF
+)
+            base_branch=$(cat .git/branch)
+
+            gh pr create --base ${base_branch} --title "Dependencies updated" --body "${body}" --label "dependencies"
         else
             echo "PR already exists. Exiting..."
         fi
