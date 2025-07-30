@@ -166,7 +166,14 @@ resources:
   source:
     branch: develop
     commit_verification_keys: ((cloud-gov-pgp-keys))
-    uri: https://github.com/cloud-gov/clamav-rest-image.git
+    git_config:
+    - name: "user.name"
+      value: "cg-ci-bot"
+    - name: "user.email"
+      value: "no-reply@cloud.gov"
+    private_key: ((cg-ci-bot-sshkey.private_key))
+    uri: git@github.com:cloud-gov/clamav-rest-image.git
+    username: cg-ci-bot
 
 resource_types:
 
