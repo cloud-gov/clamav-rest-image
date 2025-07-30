@@ -39,7 +39,7 @@ pushd source
 
         # Open a PR if one does not exist.
         existing_pr_count=$(gh pr list --author "@cg-ci-bot" --label "dependencies" --json "author" | jq 'length')
-        if [[ 0 == "$existing_pr" ]]; then
+        if [[ 0 == "$existing_pr_count" ]]; then
 
             # TODO Open a PR w/ GH_TOKEN & GH_REPO
             GH_REPO=$(cat .git/config| grep url | head -n 1 | awk -F "url = " '{print $2}')
