@@ -24,7 +24,6 @@ pushd source
         
     echo "CLAMAV_REST_VERSION=${clamav_rest_version}" > image/args/build-args.conf
     echo "GO_VERSION=${go_version}" >> image/args/build-args.conf
-    echo " " >> image/args/build-args.conf
 
     # Only commit if there are changes
     git_diff=$(git diff image/args/build-args.conf)
