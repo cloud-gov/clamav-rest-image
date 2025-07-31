@@ -1,0 +1,14 @@
+platform: linux
+inputs:
+  - name: source
+
+params:
+  CF_API: 
+  CF_ORG:
+  CF_PASSWORD:
+  CF_SPACE:
+  CF_USERNAME:
+  CLAMAV_REST_HOSTNAME:
+
+run:
+  path: source/ci/cleanup.sh

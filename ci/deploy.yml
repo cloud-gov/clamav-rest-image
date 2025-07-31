@@ -1,0 +1,18 @@
+platform: linux
+inputs:
+  - name: source
+  - name: clamav-rest-candidate-image
+
+params:
+  CF_API: 
+  CF_DOCKER_PASSWORD:
+  CF_DOCKER_USERNAME:
+  CF_ORG:
+  CF_PASSWORD:
+  CF_SPACE:
+  CF_USERNAME:
+  CLAMAV_REST_DOMAIN:
+  CLAMAV_REST_HOSTNAME:
+
+run:
+  path: source/ci/deploy.sh

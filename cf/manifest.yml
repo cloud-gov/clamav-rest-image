@@ -1,0 +1,10 @@
+---
+applications:
+- name: ((app_name))
+  instances: 1
+  memory: 4G
+  docker:
+    image: ((ecr_repository)):((image_version))
+    username: ((docker_username))
+  routes:
+  - route: ((route))
