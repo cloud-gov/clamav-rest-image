@@ -13,25 +13,23 @@ jobs:
   - set_pipeline: self
     file: pipeline-source/ci/pipeline.yml
 
-- name: dependency-pr
+- name: new-clamav-rest-release-notification
   plan:
   - in_parallel:
-    - get: clamav-rest-release
+    - get: github-release
+      resource: clamav-rest-release
       trigger: true
-    - get: general-task
     - get: pipeline-tasks
-    - get: source
-  - task: update-versions
-    image: general-task
-    file: source/ci/update-versions.yml   
+      params: {depth: 1}
+  - task: create-issue
+    file: pipeline-tasks/gh-release-notifier.yml
     params:
-      GH_SSH_PRIVATE_KEY: ((cg-ci-bot-sshkey.private_key))
-      GH_TOKEN: ((cg-ci-bot-ghtoken))
-      GPG_EMAIL: ((cg-ci-bot-gpg.email))
-      GPG_PASSPHRASE: ((cg-ci-bot-gpg.passphrase))
-      GPG_PRIVATE_KEY: ((cg-ci-bot-gpg.private_key))
-      GPG_PUBLIC_KEY: ((cg-ci-bot-gpg.public_key))
-      GPG_USERNAME: ((cg-ci-bot-gpg.username))
+      CLOSE_OLD_ISSUES: "true"
+      DEPENDENCY_NAME: "clamav-rest"
+      GH_REPO: "https://github.com/cloud-gov/clamav-rest-image"
+      GH_TOKEN: ((cg-ci-bot-projects-ghtoken))
+      PROJECT_NAME: "cloud.gov team"
+      SQUAD_LABEL: "squad-platform"
 
 - name: test
   serial: true
@@ -127,7 +125,7 @@ resources:
 
 - name: clamav-rest-release
   type: github-release
-  check_every: 1h
+  check_every: 2h
   source:
     access_token: ((cg-ci-bot-ghtoken))
     owner: ajilach
@@ -165,6 +163,7 @@ resources:
   type: git
   icon: github-circle
   source:
+    branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [setup-commit-signing.sh]
     uri: https://github.com/cloud-gov/pipeline-tasks.git
