@@ -21,8 +21,8 @@ WORKDIR /go/src
 
 RUN mkdir -p /go/src/clamav-rest && \
     wget https://github.com/ajilach/clamav-rest/archive/refs/tags/v${CLAMAV_REST_VERSION}.tar.gz && \
-    tar -C /go/src -xzf ${CLAMAV_REST_VERSION}.tar.gz && \
-    rm ${CLAMAV_REST_VERSION}.tar.gz 
+    tar -C /go/src -xzf v${CLAMAV_REST_VERSION}.tar.gz && \
+    rm v${CLAMAV_REST_VERSION}.tar.gz 
 
 WORKDIR /go/src/clamav-rest-${CLAMAV_REST_VERSION}
     
