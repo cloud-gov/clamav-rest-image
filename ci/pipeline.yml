@@ -140,6 +140,11 @@ jobs:
       CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
       ALLOWED_IP_RANGE: ((allowed-ip-range))
+  - task: test-platform-scanning
+    image: general-task
+    file: source/ci/test-platform-scanning.yml
+    params:
+      CF_DOMAIN: dev.us-gov-west-1.aws-us-gov.cloud.gov
 
 resources:
 
