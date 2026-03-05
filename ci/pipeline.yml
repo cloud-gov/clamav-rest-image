@@ -208,7 +208,7 @@ resources:
   source:
     branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
-    paths: [setup-commit-signing.sh]
+    paths: [gh-release-notifier.yml, gh-release-notifier.sh]
     uri: https://github.com/cloud-gov/pipeline-tasks.git
 
 - name: source
