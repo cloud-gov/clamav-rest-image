@@ -130,7 +130,7 @@ jobs:
       CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
   - task: deploy-nginx
     image: general-task
-    file: source/ci/test.yml
+    file: source/ci/deploy-nginx.yml
     params:
       CF_API: ((dev-cf-api-url))
       CF_ORG: cloud-gov
