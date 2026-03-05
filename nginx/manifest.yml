@@ -6,3 +6,5 @@ applications:
   instances: 1
   buildpacks:
   - nginx_buildpack
+  env:
+      ALLOWED_IP_RANGE: ((allowed_ip_range))

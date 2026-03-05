@@ -139,6 +139,7 @@ jobs:
       CF_USERNAME: ((dev-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      ALLOWED_IP_RANGE: ((allowed-ip-range))
 
   
 
