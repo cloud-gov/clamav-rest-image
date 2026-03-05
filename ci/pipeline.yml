@@ -35,9 +35,10 @@ jobs:
   serial: true
   plan:
   - in_parallel:
-    - get: clamav-rest-candidate-image
+    - get: clamav-rest-image
       params: {skip_download: true}
       trigger: true
+      resource: clamav-rest-candidate-image
     - get: general-task
     - get: build-source
       params: {depth: 1}
@@ -99,6 +100,48 @@ jobs:
     params:
       image: clamav-rest-candidate-image/image.tar
       additional_tags: source/.git/short_ref
+
+- name: deploy-tooling-instance-development
+  serial: true
+  plan:
+  - in_parallel:
+    - get: clamav-rest-image
+      params: {skip_download: true}
+      trigger: true
+      passed: [publish]
+    - get: general-task
+    # - get: build-source
+    #   params: {depth: 1}
+    #   trigger: true
+    - get: source 
+      params: {depth: 1}
+  - task: deploy-clamav-rest
+    image: general-task
+    file: source/ci/deploy.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_DOCKER_PASSWORD: ((ecr_aws_secret))
+      CF_DOCKER_USERNAME: ((ecr_aws_key))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((dev-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+  - task: deploy-nginx
+    image: general-task
+    file: source/ci/test.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((dev-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+
+  
+
 
 resources:
 

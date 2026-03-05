@@ -1,0 +1,14 @@
+platform: linux
+inputs:
+  - name: source
+  - name: clamav-rest-candidate-image
+
+params:
+  CF_API: 
+  CF_ORG:
+  CF_PASSWORD:
+  CF_SPACE:
+  CF_USERNAME:
+
+run:
+  path: source/ci/deploy-nginx.sh
