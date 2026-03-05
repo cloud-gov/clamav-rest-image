@@ -8,7 +8,8 @@ params:
   CF_PASSWORD:
   CF_SPACE:
   CF_USERNAME:
-  ALLOWED_IP_RANGE:
+  CONCOURSE_GARDEN_IP_RANGE1:
+  CONCOURSE_GARDEN_IP_RANGE2:
 
 run:
   path: source/ci/deploy-nginx.sh
