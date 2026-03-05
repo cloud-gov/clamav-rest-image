@@ -8,6 +8,7 @@ params:
   CF_PASSWORD:
   CF_SPACE:
   CF_USERNAME:
+  ALLOWED_IP_RANGE:
 
 run:
   path: source/ci/deploy-nginx.sh

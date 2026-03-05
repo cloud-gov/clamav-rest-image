@@ -141,9 +141,6 @@ jobs:
       CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
       ALLOWED_IP_RANGE: ((allowed-ip-range))
 
-  
-
-
 resources:
 
 - name: clamav-rest-candidate-image
