@@ -1,6 +1,16 @@
 #!/bin/bash
 
-clamav_rest_endpoint="https://clamav-rest.${CF_DOMAIN}"
+set -e
+
+cf api $CF_API
+cf auth
+
+cf t -o $CF_ORG -s $CF_SPACE
+
+app_guid=$(cf app clamav-rest --guid)
+clamav_rest_route=$(cf curl "/v3/apps/${app_guid}/routes" | jq -r '.resources[].url[0]')
+
+clamav_rest_endpoint="https://${clamav_rest_route}"
 
 version_result=$(curl -s ${clamav_rest_endpoint}/version | jq -r '.Clamav')
 if [[ -z "$version_result" ]]; then
@@ -27,6 +37,7 @@ if [[ "406" != "$eicar_result_http_status" ]] || [[ "FOUND" != "$eicar_result_bo
 else
     echo "PASSED: Eicar file scanned correctly. http_status: \"${eicar_result_http_status}\". body_status: \"${eicar_result_body_status}\""
 fi 
+
 
 # ensure access from CF apps is blocked.
 blocked_invocation=$(cf ssh -t clamav-rest -c 'curl https://clamav-rest.dev.us-gov-west-1.aws-us-gov.cloud.gov/version 2>&1' | grep "Connection refused")
