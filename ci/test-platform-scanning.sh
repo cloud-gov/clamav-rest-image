@@ -44,11 +44,15 @@ blocked_invocation=$(cf ssh -t clamav-rest -c 'curl https://clamav-rest.dev.us-g
 if [ -z "$blocked_invocation" ];then
     echo "FAILED: Expected execution from CloudFoundry to be blocked"
     exit 1
+else 
+    echo "PASSED: Execution from Cloud Foundry is blocked"
 fi
 
 # invocation from inside this app should succeed
 direct_invocation=$(cf ssh clamav-rest -c "curl http://clamav-rest-endpoint.apps.internal:8080/version | jq -r '.Clamav'")
 if [[ -z "$direct_invocation" ]]; then
-    echo "FAILED: Endpoint failed to return ClamAV version: ${version_result}" 
+    echo "FAILED: Endpoint failed to return ClamAV version on direct invocation" 
     exit 1
+else 
+    echo "PASSED: Endpoint returned ClamAV version on direct invocation"
 fi
