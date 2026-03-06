@@ -1,6 +1,6 @@
 #!/bin/bash
 
-clamav_rest_endpoint="clamav-rest.${CF_DOMAIN}"
+clamav_rest_endpoint="https://clamav-rest.${CF_DOMAIN}"
 
 version_result=$(curl -s ${clamav_rest_endpoint}/version | jq -r '.Clamav')
 if [[ -z "$version_result" ]]; then
