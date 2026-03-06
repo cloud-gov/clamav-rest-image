@@ -11,6 +11,8 @@ params:
   CF_USERNAME:
   CONCOURSE_GARDEN_IP_RANGE1:
   CONCOURSE_GARDEN_IP_RANGE2:
+  TOOLING_EGRESS1: 
+  TOOLING_EGRESS2: 
 
 run:
   path: source/ci/deploy-nginx.sh

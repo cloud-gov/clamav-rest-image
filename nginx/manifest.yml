@@ -10,3 +10,5 @@ applications:
       ALLOWED_IP_RANGE: ((allowed_ip_range))
       CONCOURSE_GARDEN_IP_RANGE1: ((concourse_garden_ip_range1))
       CONCOURSE_GARDEN_IP_RANGE2: ((concourse_garden_ip_range2))
+      TOOLING_EGRESS1: ((tooling_egress1))
+      TOOLING_EGRESS2: ((tooling_egress2))
