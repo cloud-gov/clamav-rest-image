@@ -8,7 +8,7 @@ cf auth
 cf t -o $CF_ORG -s $CF_SPACE
 
 app_guid=$(cf app clamav-rest --guid)
-clamav_rest_route=$(cf curl "/v3/apps/${app_guid}/routes" | jq -r '.resources[].url[0]')
+clamav_rest_route=$(cf curl "/v3/apps/${app_guid}/routes" | jq -r '.resources[0].url')
 
 clamav_rest_endpoint="https://${clamav_rest_route}"
 
