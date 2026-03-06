@@ -27,3 +27,17 @@ if [[ "406" != "$eicar_result_http_status" ]] || [[ "FOUND" != "$eicar_result_bo
 else
     echo "PASSED: Eicar file scanned correctly. http_status: \"${eicar_result_http_status}\". body_status: \"${eicar_result_body_status}\""
 fi 
+
+# ensure access from CF apps is blocked.
+blocked_invocation=$(cf ssh -t clamav-rest -c 'curl https://clamav-rest.dev.us-gov-west-1.aws-us-gov.cloud.gov/version 2>&1' | grep "Connection refused")
+if [ -z "$blocked_invocation" ];then
+    echo "FAILED: Expected execution from CloudFoundry to be blocked"
+    exit 1
+fi
+
+# invocation from inside this app should succeed
+direct_invocation=$(cf ssh clamav-rest -c "curl http://clamav-rest-endpoint.apps.internal:8080/version | jq -r '.Clamav'")
+if [[ -z "$direct_invocation" ]]; then
+    echo "FAILED: Endpoint failed to return ClamAV version: ${version_result}" 
+    exit 1
+fi
