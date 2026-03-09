@@ -58,6 +58,7 @@ jobs:
       CF_USERNAME: ((dev-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
+      CLAMAV_REST_INSTANCES: 1
   - task: test
     image: general-task
     file: source/ci/test.yml
@@ -125,6 +126,7 @@ jobs:
       CF_USERNAME: ((dev-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      CLAMAV_REST_INSTANCES: 1
   - task: deploy-nginx
     image: general-task
     file: source/ci/deploy-nginx.yml
@@ -139,6 +141,7 @@ jobs:
       ALLOWED_IP_RANGE: ((allowed_ip_range))
       CONCOURSE_GARDEN_IP_RANGE1: ((concourse_garden_ip_range1))
       CONCOURSE_GARDEN_IP_RANGE2: ((concourse_garden_ip_range2))
+      NGINX_INSTANCES: 1
       TOOLING_EGRESS1: ((tooling_egress1))
       TOOLING_EGRESS2: ((tooling_egress2))
   - task: test-platform-scanning
@@ -175,6 +178,7 @@ jobs:
       CF_USERNAME: ((staging-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      CLAMAV_REST_INSTANCES: 2
   - task: deploy-nginx
     image: general-task
     file: source/ci/deploy-nginx.yml
@@ -189,6 +193,7 @@ jobs:
       ALLOWED_IP_RANGE: ((allowed_ip_range))
       CONCOURSE_GARDEN_IP_RANGE1: ((concourse_garden_ip_range1))
       CONCOURSE_GARDEN_IP_RANGE2: ((concourse_garden_ip_range2))
+      NGINX_INSTANCES: 2
       TOOLING_EGRESS1: ((tooling_egress1))
       TOOLING_EGRESS2: ((tooling_egress2))
   - task: test-platform-scanning
@@ -225,6 +230,7 @@ jobs:
       CF_USERNAME: ((prod-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      CLAMAV_REST_INSTANCES: 2
   - task: deploy-nginx
     image: general-task
     file: source/ci/deploy-nginx.yml
@@ -239,6 +245,7 @@ jobs:
       ALLOWED_IP_RANGE: ((allowed_ip_range))
       CONCOURSE_GARDEN_IP_RANGE1: ((concourse_garden_ip_range1))
       CONCOURSE_GARDEN_IP_RANGE2: ((concourse_garden_ip_range2))
+      NGINX_INSTANCES: 2
       TOOLING_EGRESS1: ((tooling_egress1))
       TOOLING_EGRESS2: ((tooling_egress2))
   - task: test-platform-scanning

@@ -13,6 +13,7 @@ params:
   CF_USERNAME:
   CLAMAV_REST_DOMAIN:
   CLAMAV_REST_HOSTNAME:
+  CLAMAV_REST_INSTANCES:
 
 run:
   path: source/ci/deploy.sh

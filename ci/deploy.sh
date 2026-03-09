@@ -11,6 +11,7 @@ cf auth
 cf t -o $CF_ORG -s $CF_SPACE
 
 cf push -f source/cf/manifest.yml \
+    -i CLAMAV_REST_INSTANCES \
     --var app_name=${CLAMAV_REST_HOSTNAME} \
     --var docker_username=${CF_DOCKER_USERNAME} \
     --var ecr_repository=${ecr_repository} \
