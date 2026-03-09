@@ -1,0 +1,19 @@
+platform: linux
+inputs:
+  - name: source
+
+params:
+  ALLOWED_IP_RANGE:
+  CF_API: 
+  CF_ORG:
+  CF_PASSWORD:
+  CF_SPACE:
+  CF_USERNAME:
+  CONCOURSE_GARDEN_IP_RANGE1:
+  CONCOURSE_GARDEN_IP_RANGE2:
+  NGINX_INSTANCES: 
+  TOOLING_EGRESS1: 
+  TOOLING_EGRESS2: 
+
+run:
+  path: source/ci/deploy-nginx.sh

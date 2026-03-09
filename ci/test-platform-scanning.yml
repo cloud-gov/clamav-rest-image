@@ -1,0 +1,9 @@
+platform: linux
+inputs:
+  - name: source
+
+params:
+  CF_DOMAIN: 
+
+run:
+  path: source/ci/test-platform-scanning.sh

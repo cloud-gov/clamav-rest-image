@@ -35,9 +35,10 @@ jobs:
   serial: true
   plan:
   - in_parallel:
-    - get: clamav-rest-candidate-image
+    - get: clamav-rest-image
       params: {skip_download: true}
       trigger: true
+      resource: clamav-rest-candidate-image
     - get: general-task
     - get: build-source
       params: {depth: 1}
@@ -57,6 +58,7 @@ jobs:
       CF_USERNAME: ((dev-cf-username))
       CLAMAV_REST_DOMAIN: apps.internal
       CLAMAV_REST_HOSTNAME: clamav-rest-acceptance
+      CLAMAV_REST_INSTANCES: 1
   - task: test
     image: general-task
     file: source/ci/test.yml
@@ -99,6 +101,162 @@ jobs:
     params:
       image: clamav-rest-candidate-image/image.tar
       additional_tags: source/.git/short_ref
+
+- name: deploy-tooling-instance-development
+  serial: true
+  plan:
+  - in_parallel:
+    - get: clamav-rest-image
+      params: {skip_download: true}
+      trigger: true
+      passed: [publish]
+    - get: general-task
+    - get: source 
+      params: {depth: 1}
+  - task: deploy-clamav-rest
+    image: general-task
+    file: source/ci/deploy.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_DOCKER_PASSWORD: ((ecr_aws_secret))
+      CF_DOCKER_USERNAME: ((ecr_aws_key))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((dev-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      CLAMAV_REST_INSTANCES: 1
+  - task: deploy-nginx
+    image: general-task
+    file: source/ci/deploy-nginx.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((dev-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      ALLOWED_IP_RANGE: ((allowed_ip_range))
+      CONCOURSE_GARDEN_IP_RANGE1: ((concourse_garden_ip_range1))
+      CONCOURSE_GARDEN_IP_RANGE2: ((concourse_garden_ip_range2))
+      NGINX_INSTANCES: 1
+      TOOLING_EGRESS1: ((tooling_egress1))
+      TOOLING_EGRESS2: ((tooling_egress2))
+  - task: test-platform-scanning
+    image: general-task
+    file: source/ci/test-platform-scanning.yml
+    params:
+      CF_API: ((dev-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((dev-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((dev-cf-username))
+
+- name: deploy-tooling-instance-staging
+  serial: true
+  plan:
+  - in_parallel:
+    - get: clamav-rest-image
+      params: {skip_download: true}
+      trigger: true
+      passed: [deploy-tooling-instance-development]
+    - get: general-task
+    - get: source 
+      params: {depth: 1}
+  - task: deploy-clamav-rest
+    image: general-task
+    file: source/ci/deploy.yml
+    params:
+      CF_API: ((staging-cf-api-url))
+      CF_DOCKER_PASSWORD: ((ecr_aws_secret))
+      CF_DOCKER_USERNAME: ((ecr_aws_key))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((staging-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((staging-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      CLAMAV_REST_INSTANCES: 2
+  - task: deploy-nginx
+    image: general-task
+    file: source/ci/deploy-nginx.yml
+    params:
+      CF_API: ((staging-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((staging-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((staging-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      ALLOWED_IP_RANGE: ((allowed_ip_range))
+      CONCOURSE_GARDEN_IP_RANGE1: ((concourse_garden_ip_range1))
+      CONCOURSE_GARDEN_IP_RANGE2: ((concourse_garden_ip_range2))
+      NGINX_INSTANCES: 2
+      TOOLING_EGRESS1: ((tooling_egress1))
+      TOOLING_EGRESS2: ((tooling_egress2))
+  - task: test-platform-scanning
+    image: general-task
+    file: source/ci/test-platform-scanning.yml
+    params:
+      CF_API: ((staging-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((staging-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((staging-cf-username))
+
+- name: deploy-tooling-instance-production
+  serial: true
+  plan:
+  - in_parallel:
+    - get: clamav-rest-image
+      params: {skip_download: true}
+      trigger: true
+      passed: [deploy-tooling-instance-staging]
+    - get: general-task
+    - get: source 
+      params: {depth: 1}
+  - task: deploy-clamav-rest
+    image: general-task
+    file: source/ci/deploy.yml
+    params:
+      CF_API: ((prod-cf-api-url))
+      CF_DOCKER_PASSWORD: ((ecr_aws_secret))
+      CF_DOCKER_USERNAME: ((ecr_aws_key))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((prod-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((prod-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      CLAMAV_REST_INSTANCES: 2
+  - task: deploy-nginx
+    image: general-task
+    file: source/ci/deploy-nginx.yml
+    params:
+      CF_API: ((prod-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((prod-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((prod-cf-username))
+      CLAMAV_REST_DOMAIN: apps.internal
+      CLAMAV_REST_HOSTNAME: clamav-rest-endpoint
+      ALLOWED_IP_RANGE: ((allowed_ip_range))
+      CONCOURSE_GARDEN_IP_RANGE1: ((concourse_garden_ip_range1))
+      CONCOURSE_GARDEN_IP_RANGE2: ((concourse_garden_ip_range2))
+      NGINX_INSTANCES: 2
+      TOOLING_EGRESS1: ((tooling_egress1))
+      TOOLING_EGRESS2: ((tooling_egress2))
+  - task: test-platform-scanning
+    image: general-task
+    file: source/ci/test-platform-scanning.yml
+    params:
+      CF_API: ((prod-cf-api-url))
+      CF_ORG: cloud-gov
+      CF_PASSWORD: ((prod-cf-password))
+      CF_SPACE: clamav-rest
+      CF_USERNAME: ((prod-cf-username))
 
 resources:
 

@@ -2,8 +2,8 @@
 
 set -e
 
-ecr_repository=$(cat clamav-rest-candidate-image/repository)
-image_version=$(cat clamav-rest-candidate-image/tag)
+ecr_repository=$(cat clamav-rest-image/repository)
+image_version=$(cat clamav-rest-image/tag)
 
 cf api $CF_API
 cf auth
@@ -11,6 +11,7 @@ cf auth
 cf t -o $CF_ORG -s $CF_SPACE
 
 cf push -f source/cf/manifest.yml \
+    -i $CLAMAV_REST_INSTANCES \
     --var app_name=${CLAMAV_REST_HOSTNAME} \
     --var docker_username=${CF_DOCKER_USERNAME} \
     --var ecr_repository=${ecr_repository} \
