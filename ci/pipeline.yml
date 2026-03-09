@@ -303,7 +303,7 @@ resources:
   type: git
   icon: github-circle
   source:
-    branch: deploy
+    branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [image/**/*]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
@@ -312,7 +312,7 @@ resources:
   type: git
   icon: github-circle
   source:
-    branch: deploy
+    branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
     paths: [ci/pipeline.yml]
     uri: https://github.com/cloud-gov/clamav-rest-image.git
@@ -330,7 +330,7 @@ resources:
   type: git
   icon: github-circle
   source:
-    branch: deploy
+    branch: main
     commit_verification_keys: ((cloud-gov-pgp-keys))
     git_config:
     - name: "user.name"
