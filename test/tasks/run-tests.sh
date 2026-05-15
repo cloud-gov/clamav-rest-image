@@ -65,16 +65,16 @@ fi
 
 # test oversized file
 test_count=$((test_count + 1))
-wget -q https://github.com/cloudfoundry/system-metrics-release/releases/download/v3.0.13/system-metrics-3.0.13.tgz
+wget -q https://github.com/cloudfoundry/windows-tools-release/releases/download/v80.76.0/windows-tools-80.76.0.tgz
 oversize_test="failed"
-oversize_result_http_status=$(curl -s -o oversize_response.txt -w "%{response_code}" -F "file=@system-metrics-3.0.13.tgz" ${CLAMAV_REST_ENDPOINT}/v2/scan)
+oversize_result_http_status=$(curl -s -o oversize_response.txt -w "%{response_code}" -F "file=@windows-tools-80.76.0.tgz" ${CLAMAV_REST_ENDPOINT}/v2/scan)
 oversize_result_body_status=$(cat oversize_response.txt | jq -r '.[].Status')
 if [[ "413" != "$oversize_result_http_status" ]] || [[ "PARSE ERROR" != "$oversize_result_body_status" ]]; then
-    echo "TEST FAILED: Scanning oversize file failed. http_status: expected \"413\", got \"${oversize_result_http_status}\". body_status: expected \"PARSE ERROR\", got \"${oversize_result_body_status}\". File size: $(du -h system-metrics-3.0.13.tgz)." >&2
+    echo "TEST FAILED: Scanning oversize file failed. http_status: expected \"413\", got \"${oversize_result_http_status}\". body_status: expected \"PARSE ERROR\", got \"${oversize_result_body_status}\". File size: $(du -h windows-tools-80.76.0.tgz)." >&2
     fail_count=$((fail_count + 1))
 else
     oversize_test="passed"
-    echo "PASSED: Oversize file rejected correctly. http_status: \"${oversize_result_http_status}\". body_status: \"${oversize_result_body_status}\". File size: $(du -h system-metrics-3.0.13.tgz)."
+    echo "PASSED: Oversize file rejected correctly. http_status: \"${oversize_result_http_status}\". body_status: \"${oversize_result_body_status}\". File size: $(du -h windows-tools-80.76.0.tgz)."
 fi 
 
 if [[ "$fail_count" != 0 ]]; then
