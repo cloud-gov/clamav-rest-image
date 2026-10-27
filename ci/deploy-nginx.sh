@@ -16,7 +16,7 @@ pushd source/nginx
         --var concourse_garden_ip_range1="${CONCOURSE_GARDEN_IP_RANGE1}" \
         --var concourse_garden_ip_range2="${CONCOURSE_GARDEN_IP_RANGE2}" \
         --var firewall_inspection_vpc_eip_1="${FIREWALL_INSPECTION_VPC_EIP_1}" \
-        --var firewall_inspection_vpc_eip_2="${FIREWALL_INSPECTION_VPC_EIP_2}" \
+        --var firewall_inspection_vpc_eip_2="${FIREWALL_INSPECTION_VPC_EIP_2}" 
 popd
 
 cf add-network-policy clamav-rest clamav-rest-endpoint --protocol tcp --port 8080
