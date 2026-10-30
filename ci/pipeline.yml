@@ -198,6 +198,8 @@ jobs:
       NGINX_INSTANCES: 2
       TOOLING_EGRESS1: ((tooling_egress1))
       TOOLING_EGRESS2: ((tooling_egress2))
+      FIREWALL_INSPECTION_VPC_NAT_EIP_1: ((firewall_inspection_vpc_nat_eip_1))
+      FIREWALL_INSPECTION_VPC_NAT_EIP_2: ((firewall_inspection_vpc_nat_eip_2))
   - task: test-platform-scanning
     image: general-task
     file: source/ci/test-platform-scanning.yml
@@ -250,6 +252,8 @@ jobs:
       NGINX_INSTANCES: 2
       TOOLING_EGRESS1: ((tooling_egress1))
       TOOLING_EGRESS2: ((tooling_egress2))
+      FIREWALL_INSPECTION_VPC_NAT_EIP_1: ((firewall_inspection_vpc_nat_eip_1))
+      FIREWALL_INSPECTION_VPC_NAT_EIP_2: ((firewall_inspection_vpc_nat_eip_2))
   - task: test-platform-scanning
     image: general-task
     file: source/ci/test-platform-scanning.yml
